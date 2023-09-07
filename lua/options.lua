@@ -36,8 +36,11 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 50
 vim.o.timeoutlen = 300
+
+-- Color column
+vim.o.colorcolumn = "80"
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

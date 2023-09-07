@@ -1,12 +1,6 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -23,6 +17,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ld', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
   nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>lf', vim.lsp.buf.format, '[F]ormat Buffer')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -35,6 +30,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
+
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
@@ -53,7 +49,24 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {
+    settings = {
+      python = {
+        -- pyright = { autoImportCompletion = true, },
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = 'workspace',
+          useLibraryCodeForTypes = true,
+          typeCheckingMode = 'off',
+          diagnosticSeverityOverrides = {
+            reportUnusedVariable = false,
+            reportUnusedImport = "none",
+          }
+        },
+      },
+    },
+    { filetypes = { "python" } },
+  },
   -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
@@ -82,6 +95,32 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
+    -- if server_name == "pyright" then
+    --   require('lspconfig')[server_name].setup {
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    --     settings = {
+    --       pyright = { autoImportCompletion = true, },
+    --       analysis = {
+    --         autoSearchPaths = true,
+    --         diagnosticMode = 'openFilesOnly',
+    --         useLibraryCodeForTypes = true,
+    --         typeCheckingMode = 'off',
+    --         diagnosticSeverityOverrides = {
+    --           reportUnusedVariable = false,
+    --         }
+    --       }
+    --     },
+    --     filetypes = (servers[server_name] or {}).filetypes,
+    --   }
+    -- else
+    --   require('lspconfig')[server_name].setup {
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    --     settings = servers[server_name],
+    --     filetypes = (servers[server_name] or {}).filetypes,
+    --   }
+    -- end
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
