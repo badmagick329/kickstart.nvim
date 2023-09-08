@@ -13,7 +13,9 @@ vim.o.rnu = true
 
 -- Use spaces instead of tab
 vim.o.expandtab = true
---
+
+vim.o.tabstop = 4
+
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
@@ -36,7 +38,7 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
-vim.o.updatetime = 50
+vim.o.updatetime = 200
 vim.o.timeoutlen = 300
 
 -- Color column

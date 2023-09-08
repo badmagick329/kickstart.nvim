@@ -26,13 +26,14 @@ require('lazy').setup({
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
   -- GOAT surround plugin
   'tpope/vim-surround',
+  -- lets you repeat things like vim surround motions
+  'tpope/vim-repeat',
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',  opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -41,6 +42,11 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  -- make inlayhints work
+  'lvimuser/lsp-inlayhints.nvim',
+  -- schema store for json/yaml
+  'b0o/SchemaStore.nvim',
+
   -- Uncomment any of the lines below to enable.
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
@@ -48,4 +54,8 @@ require('lazy').setup({
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
-}, {})
+}, {
+  change_detection = {
+    notify = false,
+  },
+})

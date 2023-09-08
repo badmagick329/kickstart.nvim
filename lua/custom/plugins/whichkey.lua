@@ -99,6 +99,9 @@ return {
         ["<leader>l"] = {
           name="+lsp"
         },
+        ["<leader>k"] = {
+          name="+harpoon"
+        },
       })
     end
   },

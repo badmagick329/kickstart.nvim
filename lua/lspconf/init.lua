@@ -14,10 +14,9 @@ local on_attach = function(_, bufnr)
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap('<leader>ld', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
   nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-  nmap('<leader>lf', vim.lsp.buf.format, '[F]ormat Buffer')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -31,11 +30,11 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  -- Using formatter.nvim instead
+  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --   vim.lsp.buf.format()
+  -- end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -47,30 +46,102 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
+  clangd = {},
+  gopls = {},
+  tsserver = {},
+  svelte = {},
+  tailwindcss = {
+    filetypes = {
+      "html"
+    }
+  },
   pyright = {
     settings = {
       python = {
-        -- pyright = { autoImportCompletion = true, },
         analysis = {
           autoSearchPaths = true,
           diagnosticMode = 'workspace',
           useLibraryCodeForTypes = true,
-          typeCheckingMode = 'off',
           diagnosticSeverityOverrides = {
-            reportUnusedVariable = false,
-            reportUnusedImport = "none",
-          }
+            reportGeneralTypeIssues = 'information',
+            reportOptionalSubscript = 'none',
+            reportPrivateUsage = 'warning',
+            reportOptionalMemberAccess = 'none',
+          },
         },
       },
     },
-    { filetypes = { "python" } },
   },
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  rust_analyzer = {
+    settings = {
+      ['rust-analyzer'] = {
+        assist = {
+          importGranularity = 'module',
+          importPrefix = 'by_self',
+        },
+        inlayHints = {
+          ChainingHints = true,
+          TypeHints = true,
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+        },
+        cmd = {
+          'rustup',
+          'run',
+          'nightly',
+          'rust-analyzer',
+        },
+      },
+    },
+  },
+  emmet_ls = {},
+  html = {
+    filetypes = { 'html', 'twig', 'hbs', 'htmldjango' },
+    settings = {
+      html = {
+        format = {
+          templating = true,
+          wrapLineLength = 80,
+          wrapAttributes = 'auto',
+        },
+        hover = {
+          documentation = true,
+          references = true,
+        },
+      },
+    },
+  },
+  jsonls = {
+    settings = {
+      json = {
+        -- schemas = require('schemastore').json.schemas {
+        -- To use a subset of the catalog:
+        -- select = {
+        --   '.eslintrc',
+        --   'package.json',
+        -- },
+        -- To ignore a subset
+        -- ignore = {
+        --   '.eslintrc',
+        --   'package.json',
+        -- },
+        -- },
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+      yaml = {
+        schemaStore = {
+          -- You must disable built-in schemaStore support if you want to use
+          -- this plugin and its advanced options like `ignore`.
+          enable = false,
+          -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+          url = '',
+        },
+        schemas = require('schemastore').yaml.schemas(),
+      },
+    },
+  },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -78,6 +149,13 @@ local servers = {
     },
   },
 }
+
+-- General lsp config
+
+local config = {
+  underline = false,
+}
+vim.diagnostic.config(config)
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -95,37 +173,11 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    -- if server_name == "pyright" then
-    --   require('lspconfig')[server_name].setup {
-    --     capabilities = capabilities,
-    --     on_attach = on_attach,
-    --     settings = {
-    --       pyright = { autoImportCompletion = true, },
-    --       analysis = {
-    --         autoSearchPaths = true,
-    --         diagnosticMode = 'openFilesOnly',
-    --         useLibraryCodeForTypes = true,
-    --         typeCheckingMode = 'off',
-    --         diagnosticSeverityOverrides = {
-    --           reportUnusedVariable = false,
-    --         }
-    --       }
-    --     },
-    --     filetypes = (servers[server_name] or {}).filetypes,
-    --   }
-    -- else
-    --   require('lspconfig')[server_name].setup {
-    --     capabilities = capabilities,
-    --     on_attach = on_attach,
-    --     settings = servers[server_name],
-    --     filetypes = (servers[server_name] or {}).filetypes,
-    --   }
-    -- end
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
-  end
+  end,
 }
