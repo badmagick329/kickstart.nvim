@@ -39,6 +39,9 @@ return {
         c = {
           require('formatter.filetypes.c').clangformat,
         },
+        rust = {
+          require('formatter.filetypes.rust').rustfmt,
+        },
         sql = {
           function()
             return {

@@ -32,6 +32,24 @@ require('lazy').setup({
   'tpope/vim-surround',
   -- lets you repeat things like vim surround motions
   'tpope/vim-repeat',
+  'badmagick329/harpoon',
+  'pappasam/nvim-repl',
+  'mbbill/undotree',
+  -- need this for go
+  'simrat39/inlay-hints.nvim',
+  {
+    'kdheepak/lazygit.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   after = { "copilot.lua" },
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
   {
@@ -42,8 +60,6 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  -- make inlayhints work
-  'lvimuser/lsp-inlayhints.nvim',
   -- schema store for json/yaml
   'b0o/SchemaStore.nvim',
 

@@ -19,11 +19,12 @@ vim.g.maplocalleader = ' '
 -- })
 -- ---------------------------------------------------------------
 
-require 'plugins'
-require 'options'
-require 'keymaps'
-require 'lspconf'
-require 'otherconf'
+require 'custom.pluginlist'
+require 'custom.funcs'
+require 'custom.options'
+require 'custom.keymaps'
+require 'custom.lsp'
+require 'custom.after'
 
 -- ---------------------------------------------------------------
 -- The line beneath this is called `modeline`. See `:help modeline`

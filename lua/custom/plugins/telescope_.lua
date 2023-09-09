@@ -20,8 +20,8 @@ return {
   -- [[ Configure Telescope ]]
   -- See `:help telescope` and `:help telescope.setup()`
   config = function()
-    local t = require("telescope")
-    t.setup({
+    local t = require 'telescope'
+    t.setup {
       defaults = {
         mappings = {
           i = {
@@ -29,9 +29,13 @@ return {
             ['<C-d>'] = false,
           },
         },
-      }
-    })
+        file_ignore_patterns = { 'node_modules/*',
+          '.git/*', 'venv/*', 'vnv/*', '__pycache__/*', '.pytest_cache/*',
+          'go.sum'
+        },
+      },
+    }
     -- Enable telescope fzf native, if installed
     pcall(t.load_extension, 'fzf')
-  end
+  end,
 }

@@ -1,5 +1,50 @@
 -- [[ Configure LSP ]]
+-- Native type hints
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client.server_capabilities.inlayHintProvider then
+      if vim.lsp.inlay_hint ~= nil then
+        vim.lsp.inlay_hint(args.buf, true)
+      end
+    end
+    -- whatever other lsp config you want
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = 'LSP: ' .. desc
+      end
+
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
+    nmap('<leader>lr', vim.lsp.buf.rename, '[R]ename')
+    nmap('<leader>la', vim.lsp.buf.code_action, 'Code [A]ction')
+
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
+    nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
+    nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('<leader>ld', '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<cr>', 'Open line [d]iagnostics in float')
+    nmap('<leader>lo', '<cmd>SymbolsOutline<cr>', 'Symbols Outline')
+
+    -- See `:help K` for why this keymap
+    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+    -- Lesser used LSP functionality
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+    nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+    nmap('<leader>lwl', function()
+      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, '[W]orkspace [L]ist Folders')
+  end,
+})
+
 --  This function gets run when an LSP connects to a particular buffer.
+local util = require 'lspconfig.util'
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -17,6 +62,8 @@ local on_attach = function(_, bufnr)
   nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
   nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  nmap('<leader>ld', '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<cr>', 'Open line [d]iagnostics in float')
+  nmap('<leader>lo', '<cmd>SymbolsOutline<cr>', 'Symbols Outline')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -47,13 +94,11 @@ end
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {},
-  gopls = {},
-  tsserver = {},
   svelte = {},
   tailwindcss = {
     filetypes = {
-      "html"
-    }
+      'html',
+    },
   },
   pyright = {
     settings = {
@@ -62,35 +107,13 @@ local servers = {
           autoSearchPaths = true,
           diagnosticMode = 'workspace',
           useLibraryCodeForTypes = true,
+          -- useLibraryCodeForTypes = false,
           diagnosticSeverityOverrides = {
             reportGeneralTypeIssues = 'information',
             reportOptionalSubscript = 'none',
             reportPrivateUsage = 'warning',
             reportOptionalMemberAccess = 'none',
           },
-        },
-      },
-    },
-  },
-  rust_analyzer = {
-    settings = {
-      ['rust-analyzer'] = {
-        assist = {
-          importGranularity = 'module',
-          importPrefix = 'by_self',
-        },
-        inlayHints = {
-          ChainingHints = true,
-          TypeHints = true,
-        },
-        cargo = {
-          loadOutDirsFromCheck = true,
-        },
-        cmd = {
-          'rustup',
-          'run',
-          'nightly',
-          'rust-analyzer',
         },
       },
     },
@@ -175,9 +198,75 @@ mason_lspconfig.setup_handlers {
   function(server_name)
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
+      -- on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
+}
+
+local lspconfig = require 'lspconfig'
+local ih = require 'inlay-hints'
+
+-- Settings with inlay hints
+-- typescript-tools
+lspconfig['typescript-tools'].setup {
+  capabilities = capabilities,
+  filetypes = {
+    'javascript',
+    'javascriptreact',
+    'javascript.jsx',
+    'typescript',
+    'typescriptreact',
+    'typescript.tsx',
+  },
+  root_dir = function(fname)
+    return util.root_pattern 'tsconfig.json'(fname) or util.root_pattern('package.json', 'jsconfig.json', '.git')(fname)
+  end,
+  single_file_support = true,
+  settings = {
+    javascript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+      },
+    },
+    typescript = {
+      inlayHints = {
+        includeInlayEnumMemberValueHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayVariableTypeHints = true,
+      },
+    },
+  },
+}
+-- gopls
+lspconfig.gopls.setup {
+  on_attach = function(c, b)
+    ih.on_attach(c, b)
+  end,
+  capabilities = capabilities,
+  filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
+  settings = {
+    gopls = {
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+    },
+  },
 }

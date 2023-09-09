@@ -1,4 +1,3 @@
-
   -- Navigate to and from tmux
   return {
     "christoomey/vim-tmux-navigator",
