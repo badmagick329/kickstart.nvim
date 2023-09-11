@@ -100,24 +100,26 @@ local servers = {
       'html',
     },
   },
-  pyright = {
-    settings = {
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = 'workspace',
-          useLibraryCodeForTypes = true,
-          -- useLibraryCodeForTypes = false,
-          diagnosticSeverityOverrides = {
-            reportGeneralTypeIssues = 'information',
-            reportOptionalSubscript = 'none',
-            reportPrivateUsage = 'warning',
-            reportOptionalMemberAccess = 'none',
-          },
-        },
-      },
-    },
-  },
+  -- pyright = {
+  --   settings = {
+  --     python = {
+  --       analysis = {
+  --         autoSearchPaths = true,
+  --         autoImportCompletions = true,
+  --         completeFunctionParens = true,
+  --         diagnosticMode = 'workspace',
+  --         useLibraryCodeForTypes = true,
+  --         -- useLibraryCodeForTypes = false,
+  --         diagnosticSeverityOverrides = {
+  --           reportGeneralTypeIssues = 'none',
+  --           reportOptionalSubscript = 'none',
+  --           reportPrivateUsage = 'warning',
+  --           reportOptionalMemberAccess = 'none',
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
   emmet_ls = {},
   html = {
     filetypes = { 'html', 'twig', 'hbs', 'htmldjango' },
@@ -206,10 +208,34 @@ mason_lspconfig.setup_handlers {
 }
 
 local lspconfig = require 'lspconfig'
-local ih = require 'inlay-hints'
+
+-- pyright setup
+lspconfig.pyright.setup {
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        autoImportCompletions = true,
+        completeFunctionParens = true,
+        diagnosticMode = 'workspace',
+        useLibraryCodeForTypes = true,
+        -- useLibraryCodeForTypes = false,
+        diagnosticSeverityOverrides = {
+          reportGeneralTypeIssues = 'information',
+          reportOptionalSubscript = 'none',
+          reportPrivateUsage = 'warning',
+          reportOptionalMemberAccess = 'none',
+        },
+      },
+    },
+  },
+  filetypes = { 'python' },
+}
 
 -- Settings with inlay hints
 -- typescript-tools
+local ih = require 'inlay-hints'
 lspconfig['typescript-tools'].setup {
   capabilities = capabilities,
   filetypes = {
