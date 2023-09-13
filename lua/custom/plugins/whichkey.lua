@@ -113,7 +113,7 @@ return {
         ['<leader>i'] = {
           name = '+repl',
         },
-        ['<leader>lw'] = {
+        ['<leader>lz'] = {
           name = '+workspaces',
         },
         ['<leader>t'] = {

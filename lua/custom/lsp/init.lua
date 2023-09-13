@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('<leader>lD', vim.lsp.buf.type_definition, 'Type [D]efinition')
     nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, 'Document [S]ymbols')
+    nmap('<leader>lW', require('telescope.builtin').lsp_workspace_symbols, 'Document [S]ymbols')
     nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
     nmap('<leader>ld', '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<cr>', 'Open line [d]iagnostics in float')
     nmap('<leader>lo', '<cmd>SymbolsOutline<cr>', 'Symbols Outline')
@@ -35,9 +36,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    nmap('<leader>lwa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-    nmap('<leader>lwr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-    nmap('<leader>lwl', function()
+    nmap('<leader>lza', vim.lsp.buf.add_workspace_folder, 'Workspace [A]dd Folder')
+    nmap('<leader>lzr', vim.lsp.buf.remove_workspace_folder, 'Workspace [R]emove Folder')
+    nmap('<leader>lzl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, '[W]orkspace [L]ist Folders')
   end,
@@ -95,6 +96,7 @@ end
 local servers = {
   clangd = {},
   svelte = {},
+  bashls = {},
   tailwindcss = {
     filetypes = {
       'html',
@@ -222,7 +224,7 @@ lspconfig.pyright.setup {
         useLibraryCodeForTypes = true,
         -- useLibraryCodeForTypes = false,
         diagnosticSeverityOverrides = {
-          reportGeneralTypeIssues = 'information',
+          reportGeneralTypeIssues = 'none',
           reportOptionalSubscript = 'none',
           reportPrivateUsage = 'warning',
           reportOptionalMemberAccess = 'none',
