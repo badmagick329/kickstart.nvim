@@ -57,7 +57,7 @@ return {
           --[[
           golines -m 79 -t 4
           --]]
-          function ()
+          function()
             return {
               exe = 'golines',
               -- args = {
@@ -70,7 +70,7 @@ return {
               -- },
               stdin = true,
             }
-          end
+          end,
         },
         python = {
           function()
@@ -175,6 +175,17 @@ return {
           end,
         },
         typescriptreact = {
+          function()
+            return {
+              exe = 'prettierd',
+              args = {
+                util.escape_path(util.get_current_buffer_file_path()),
+              },
+              stdin = true,
+            }
+          end,
+        },
+        markdown = {
           function()
             return {
               exe = 'prettierd',

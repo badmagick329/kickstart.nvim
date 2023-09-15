@@ -5,6 +5,10 @@
 -- Set highlight on search
 vim.o.hlsearch = false
 
+-- Undo dir
+vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.o.undofile = true
+
 -- Make line numbers default
 vim.wo.number = true
 -- Hybrid line numbers
