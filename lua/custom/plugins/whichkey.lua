@@ -119,6 +119,9 @@ return {
         ['<leader>t'] = {
           name = '+trouble',
         },
+        ['<leader>r'] = {
+          name = '+terminal',
+        }
       }
     end,
   },

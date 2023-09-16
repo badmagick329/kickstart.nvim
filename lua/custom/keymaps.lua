@@ -10,7 +10,7 @@ end
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Close buffer
-vim.keymap.set( 'n', '<leader>c', '<cmd>bd<cr>', { desc = 'Close buffer', silent = true })
+vim.keymap.set('n', '<leader>c', '<cmd>bd<cr>', { desc = 'Close buffer', silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -144,5 +144,10 @@ end, 'LSP References')
 -- vim.keymap.set('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
 
 -- [[ Bufferline ]]
-vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Cycle to next buffer" })
-vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Cycle to prev buffer" })
+vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Cycle to next buffer' })
+vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Cycle to prev buffer' })
+
+-- [[ ToggleTerm ]]
+nmap('<leader>rq', '<cmd>1ToggleTerm size=20 direction=horizontal<cr>', 'Horizontal Terminal 1')
+nmap('<leader>rw', '<cmd>2ToggleTerm size=80 direction=vertical<cr>', 'Vertical Terminal 2')
+nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'Floating Terminal 3')
