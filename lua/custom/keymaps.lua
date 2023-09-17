@@ -36,6 +36,11 @@ nmap('[d', vim.diagnostic.goto_prev, 'Go to previous diagnostic message')
 nmap(']d', vim.diagnostic.goto_next, 'Go to next diagnostic message')
 nmap('<leader>q', vim.diagnostic.setloclist, 'Open diagnostics list')
 
+-- Comment and uncomment lines
+
+vim.keymap.set('n', '<leader>lc', '<cmd>lua cprints()<cr>', { desc = 'Comment print statements', silent = true })
+vim.keymap.set('n', '<leader>lC', '<cmd>lua uprints()<cr>', { desc = 'Uncomment print statements', silent = true })
+
 -- function signature help in insert mode
 local opts = { noremap = true, silent = true }
 vim.keymap.set('i', '<C-h>', function()
@@ -151,3 +156,7 @@ vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Cycle to 
 nmap('<leader>rq', '<cmd>1ToggleTerm size=20 direction=horizontal<cr>', 'Horizontal Terminal 1')
 nmap('<leader>rw', '<cmd>2ToggleTerm size=80 direction=vertical<cr>', 'Vertical Terminal 2')
 nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'Floating Terminal 3')
+
+-- [[ Todo Comments ]]
+nmap('<leader>sc', '<cmd>TodoTelescope<cr>', 'Todo Telescope')
+nmap('<leader>sx', '<cmd>TodoTrouble<cr>', 'Todo Trouble')
