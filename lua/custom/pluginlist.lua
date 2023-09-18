@@ -35,23 +35,6 @@ require('lazy').setup({
   'badmagick329/harpoon',
   'pappasam/nvim-repl',
   'mbbill/undotree',
-  -- need this for go
-  'simrat39/inlay-hints.nvim',
-  {
-    'kdheepak/lazygit.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-  },
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   after = { "copilot.lua" },
-  --   config = function()
-  --     require("copilot_cmp").setup()
-  --   end,
-  -- },
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -60,6 +43,20 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  -- need this for go
+  'simrat39/inlay-hints.nvim',
+  -- lazygit
+  {
+    'kdheepak/lazygit.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+  },
+  -- telescope dap
+  'nvim-telescope/telescope-dap.nvim',
+
+  -- "gc" to comment visual regions/lines
+  { 'numToStr/Comment.nvim', opts = {} },
   -- schema store for json/yaml
   'b0o/SchemaStore.nvim',
 
@@ -70,6 +67,7 @@ require('lazy').setup({
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
+  require 'custom.dap'
 }, {
   change_detection = {
     notify = false,

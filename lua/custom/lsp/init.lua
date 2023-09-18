@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -65,10 +65,6 @@ local on_attach = function(_, bufnr)
   nmap('<leader>lw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
   nmap('<leader>ld', '<cmd>lua vim.diagnostic.open_float(0, {scope="line"})<cr>', 'Open line [d]iagnostics in float')
   nmap('<leader>lo', '<cmd>SymbolsOutline<cr>', 'Symbols Outline')
-
-  -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -185,7 +181,9 @@ local config = {
 vim.diagnostic.config(config)
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+require('neodev').setup {
+  library = { plugins = { 'nvim-dap-ui' }, types = true },
+}
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -298,3 +296,10 @@ lspconfig.gopls.setup {
     },
   },
 }
+
+-- Setup dap for python
+local mason_path = vim.fn.glob(vim.fn.stdpath 'data' .. '/mason/')
+pcall(function()
+  require('dap-python').setup(mason_path .. 'packages/debugpy/venv/bin/python')
+  -- require("dap-python").setup("python")
+end)

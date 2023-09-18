@@ -121,6 +121,9 @@ return {
         },
         ['<leader>r'] = {
           name = '+terminal',
+        },
+        ['<leader>d'] = {
+          name = '+debug',
         }
       }
     end,

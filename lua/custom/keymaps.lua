@@ -160,3 +160,32 @@ nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'Floating Terminal 3'
 -- [[ Todo Comments ]]
 nmap('<leader>sc', '<cmd>TodoTelescope<cr>', 'Todo Telescope')
 nmap('<leader>sx', '<cmd>TodoTrouble<cr>', 'Todo Trouble')
+
+-- [[ Dap Keybinds ]]
+local dap = require 'dap'
+local dapui = require 'dapui'
+nmap('<F5>', function() dap.continue() end, 'Continue')
+nmap('<F10>', function() dap.step_into() end, 'Step Into')
+nmap('<F11>', function() dap.step_over() end, 'Step Over')
+nmap('<F12>', function() dap.step_out() end, 'Step Out')
+nmap('<Leader>db', function() dap.toggle_breakpoint() end, 'Toggle Breakpoint')
+vim.keymap.set('n', '<leader>dB', function()
+  dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+end, { desc = 'Conditional Breakpoint' })
+
+nmap('<Leader>dr', function() dap.repl.open() end, 'Open Repl')
+nmap('<Leader>dl', function() dap.run_last() end, 'Run Last')
+nmap('<Leader>dx', function()
+  dap.close()
+  dapui.close()
+end, 'Close')
+local widgets = require 'dap.ui.widgets'
+nmap('<Leader>de', function() widgets.centered_float(widgets.scopes).open() end, 'Open Scopes')
+nmap('<Leader>dv', function() widgets.centered_float(widgets.variables).open() end, 'Open Variables')
+nmap('<Leader>df', function() widgets.centered_float(widgets.frames).open() end, 'Open Frames')
+vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+  require('dap.ui.widgets').hover()
+end, { desc = 'Hover' })
+vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+  require('dap.ui.widgets').preview()
+end, { desc = 'Preview' })
