@@ -61,7 +61,7 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 vim.keymap.set('n', '<leader>gg', '<cmd>LazyGit<cr>', { desc = 'LazyGit' })
 
 -- [[ formatter.nvim ]]
-vim.keymap.set('n', '<leader>lf', '<cmd>Format<cr>', { desc = '[F]ormat Buffer' })
+vim.keymap.set('n', '<leader>lf', '<cmd>Format<cr>', { desc = 'Format Buffer' })
 
 -- [[ vim-tmux-navigator ]]
 vim.keymap.set('n', '<C-h>', ':<C-U>TmuxNavigateLeft<CR>', { silent = false, remap = true })
@@ -81,15 +81,15 @@ nmap('<leader>/', function()
   })
 end, '[/] Fuzzily search in current buffer')
 
-nmap('<leader>gf', tbuiltin.git_files, 'Search [G]it [F]iles')
+nmap('<leader>gf', tbuiltin.git_files, 'Telescope: Git Files')
 nmap('<leader>sf', function()
   tbuiltin.find_files { hidden = true, no_ignore = true }
-end, '[S]earch [F]iles')
-nmap('<leader>sh', tbuiltin.help_tags, '[S]earch [H]elp')
-nmap('<leader>sw', tbuiltin.grep_string, '[S]earch current [W]ord')
-nmap('<leader>st', tbuiltin.live_grep, '[S]earch [T]ext')
-nmap('<leader>sd', tbuiltin.diagnostics, '[S]earch [D]iagnostics')
-nmap('<leader>sr', tbuiltin.resume, '[S]earch [R]resume')
+end, 'Telescope: Files')
+nmap('<leader>sh', tbuiltin.help_tags, 'Telescope: Help')
+nmap('<leader>sw', tbuiltin.grep_string, 'Telescope: Current Word')
+nmap('<leader>st', tbuiltin.live_grep, 'Telescope: Text')
+nmap('<leader>sd', tbuiltin.diagnostics, 'Telescope: Diagnostics')
+nmap('<leader>sr', tbuiltin.resume, 'Telescope: Rresume')
 
 -- [[ Harpoon Keymaps ]]
 local hui = require 'harpoon.ui'
@@ -98,11 +98,11 @@ local hmark = require 'harpoon.mark'
 nmap('<leader>kk', hui.toggle_quick_menu, 'Harpoon Quickmenu')
 nmap('<leader>ka', hmark.add_file, 'Add file')
 -- stylua: ignore start
-nmap('<leader>kq', function() hui.nav_file(1) end, 'Go to File 1')
-nmap('<leader>kw', function() hui.nav_file(2) end, 'Go to File 2')
-nmap('<leader>ke', function() hui.nav_file(3) end, 'Go to File 3')
-nmap('<leader>kr', function() hui.nav_file(4) end, 'Go to File 4')
-nmap('<leader>kt', function() hui.nav_file(5) end, 'Go to File 5')
+nmap('<leader>kq', function() hui.nav_file(1) end, 'Harpoon: File 1')
+nmap('<leader>kw', function() hui.nav_file(2) end, 'Harpoon: File 2')
+nmap('<leader>ke', function() hui.nav_file(3) end, 'Harpoon: File 3')
+nmap('<leader>kr', function() hui.nav_file(4) end, 'Harpoon: File 4')
+nmap('<leader>kt', function() hui.nav_file(5) end, 'Harpoon: File 5')
 -- stylua: ignore end
 
 -- [[ Spectre Keymaps ]]
@@ -121,26 +121,17 @@ nmap('<leader>ir', '<cmd>ReplRunCell<cr>', 'Run Cell')
 nmap('<leader>u', '<cmd>UndotreeToggle<cr>', 'Toggle UndoTree')
 
 -- [[ Trouble ]]
-nmap('<leader>tt', function()
-  require('trouble').open()
-end, 'Toggle Trouble')
-nmap('<leader>tw', function()
-  require('trouble').open 'workspace_diagnostics'
-end, 'Workspace Diagnosis')
-nmap('<leader>td', function()
-  require('trouble').open 'document_diagnostics'
-end, 'Document Diagnosis')
-nmap('<leader>tq', function()
-  require('trouble').open 'quickfix'
-end, 'Open quickfix')
-nmap('<leader>tl', function()
-  require('trouble').open 'loclist'
-end, ' Open loclist')
-nmap('gR', function()
-  require('trouble').open 'lsp_references'
-end, 'LSP References')
+-- stylua: ignore start
+local trouble = require('trouble')
+nmap('<leader>tt', function() trouble.open() end, 'Trouble: Toggle Trouble')
+nmap('<leader>tw', function() trouble.open 'workspace_diagnostics' end, 'Trouble: Workspace Diagnosis')
+nmap('<leader>td', function() trouble.open 'document_diagnostics' end, 'Trouble: Document Diagnosis')
+nmap('<leader>tq', function() trouble.open 'quickfix' end, 'Trouble: Open quickfix')
+nmap('<leader>tl', function() trouble.open 'loclist' end, 'Trouble: Open loclist')
+nmap('gR', function() trouble.open 'lsp_references' end, 'Trouble: LSP References')
+-- stylua: ignore end
 
--- Make n always search forward
+-- Make n always search forward - Maybe I don't like it?
 -- vim.keymap.set('n', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
 -- vim.keymap.set('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
 -- vim.keymap.set('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next search result' })
@@ -149,43 +140,46 @@ end, 'LSP References')
 -- vim.keymap.set('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev search result' })
 
 -- [[ Bufferline ]]
-vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Cycle to next buffer' })
-vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Cycle to prev buffer' })
+vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Bufferline: Cycle to next buffer' })
+vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Bufferline: Cycle to prev buffer' })
 
 -- [[ ToggleTerm ]]
-nmap('<leader>rq', '<cmd>1ToggleTerm size=20 direction=horizontal<cr>', 'Horizontal Terminal 1')
-nmap('<leader>rw', '<cmd>2ToggleTerm size=80 direction=vertical<cr>', 'Vertical Terminal 2')
-nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'Floating Terminal 3')
+nmap('<leader>rq', '<cmd>1ToggleTerm size=20 direction=horizontal<cr>', 'ToggleTerm: Horizontal Terminal 1')
+nmap('<leader>rw', '<cmd>2ToggleTerm size=80 direction=vertical<cr>', 'ToggleTerm: Vertical Terminal 2')
+nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'ToggleTerm: Floating Terminal 3')
 
 -- [[ Todo Comments ]]
-nmap('<leader>sc', '<cmd>TodoTelescope<cr>', 'Todo Telescope')
-nmap('<leader>sx', '<cmd>TodoTrouble<cr>', 'Todo Trouble')
+nmap('<leader>sc', '<cmd>TodoTelescope<cr>', 'TodoComments: Telescope')
+nmap('<leader>sx', '<cmd>TodoTrouble<cr>', 'TodoComments: Trouble')
 
 -- [[ Dap Keybinds ]]
 local dap = require 'dap'
 local dapui = require 'dapui'
-nmap('<F5>', function() dap.continue() end, 'Continue')
-nmap('<F10>', function() dap.step_into() end, 'Step Into')
-nmap('<F11>', function() dap.step_over() end, 'Step Over')
-nmap('<F12>', function() dap.step_out() end, 'Step Out')
-nmap('<Leader>db', function() dap.toggle_breakpoint() end, 'Toggle Breakpoint')
+-- stylua: ignore start
+nmap('<F5>', function() dap.continue() end, 'Debug: Continue')
+nmap('<F10>', function() dap.step_into() end, 'Debug: Step Into')
+nmap('<F11>', function() dap.step_over() end, 'Debug: Step Over')
+nmap('<F12>', function() dap.step_out() end, 'Debug: Step Out')
+nmap('<Leader>db', function() dap.toggle_breakpoint() end, 'Debug: Toggle Breakpoint')
 vim.keymap.set('n', '<leader>dB', function()
-  dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+  dap.set_breakpoint(vim.fn.input 'Debug: Breakpoint condition: ')
 end, { desc = 'Conditional Breakpoint' })
 
-nmap('<Leader>dr', function() dap.repl.open() end, 'Open Repl')
-nmap('<Leader>dl', function() dap.run_last() end, 'Run Last')
+nmap('<Leader>dr', function() dap.repl.open() end, 'Debug: Open Repl')
+nmap('<Leader>dl', function() dap.run_last() end, 'Debug: Run Last')
 nmap('<Leader>dx', function()
   dap.close()
   dapui.close()
-end, 'Close')
-local widgets = require 'dap.ui.widgets'
-nmap('<Leader>de', function() widgets.centered_float(widgets.scopes).open() end, 'Open Scopes')
-nmap('<Leader>dv', function() widgets.centered_float(widgets.variables).open() end, 'Open Variables')
-nmap('<Leader>df', function() widgets.centered_float(widgets.frames).open() end, 'Open Frames')
-vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
-  require('dap.ui.widgets').hover()
-end, { desc = 'Hover' })
-vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
-  require('dap.ui.widgets').preview()
-end, { desc = 'Preview' })
+end, 'Debug: Close')
+-- stylua: ignore end
+
+-- local widgets = require 'dap.ui.widgets'
+-- nmap('<Leader>de', function() widgets.centered_float(widgets.scopes).open() end, 'Open Scopes')
+-- nmap('<Leader>dv', function() widgets.centered_float(widgets.variables).open() end, 'Open Variables')
+-- nmap('<Leader>df', function() widgets.centered_float(widgets.frames).open() end, 'Open Frames')
+-- vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+--   require('dap.ui.widgets').hover()
+-- end, { desc = 'Hover' })
+-- vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+--   require('dap.ui.widgets').preview()
+-- end, { desc = 'Preview' })
