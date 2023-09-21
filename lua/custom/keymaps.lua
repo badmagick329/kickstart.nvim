@@ -144,9 +144,9 @@ vim.keymap.set('n', '<S-l>', '<cmd>BufferLineCycleNext<CR>', { desc = 'Bufferlin
 vim.keymap.set('n', '<S-h>', '<cmd>BufferLineCyclePrev<CR>', { desc = 'Bufferline: Cycle to prev buffer' })
 
 -- [[ ToggleTerm ]]
-nmap('<leader>rq', '<cmd>1ToggleTerm size=20 direction=horizontal<cr>', 'ToggleTerm: Horizontal Terminal 1')
-nmap('<leader>rw', '<cmd>2ToggleTerm size=80 direction=vertical<cr>', 'ToggleTerm: Vertical Terminal 2')
-nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'ToggleTerm: Floating Terminal 3')
+-- nmap('<leader>rq', '<cmd>1ToggleTerm size=20 direction=horizontal<cr>', 'ToggleTerm: Horizontal Terminal 1')
+-- nmap('<leader>rw', '<cmd>2ToggleTerm size=80 direction=vertical<cr>', 'ToggleTerm: Vertical Terminal 2')
+-- nmap('<leader>re', '<cmd>3ToggleTerm direction=float<cr>', 'ToggleTerm: Floating Terminal 3')
 
 -- [[ Todo Comments ]]
 nmap('<leader>sc', '<cmd>TodoTelescope<cr>', 'TodoComments: Telescope')
