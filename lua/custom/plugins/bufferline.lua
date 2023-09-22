@@ -38,7 +38,7 @@ return {
 
           return true
         end,
-        show_buffer_icons = false,
+        show_buffer_icons = true,
         show_buffer_close_icons = true,
         show_close_icon = true,
         show_tab_indicators = true,
@@ -46,7 +46,7 @@ return {
         separator_style = "bar",
         enforce_regular_tabs = false,
         always_show_bufferline = true,
-        sort_by = "id",
+        sort_by = "insert_after_current",
       },
     }
   end

@@ -10,7 +10,7 @@ end
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Close buffer
-vim.keymap.set('n', '<leader>c', '<cmd>bd<cr>', { desc = 'Close buffer', silent = true })
+vim.keymap.set('n', '<leader>c', '<cmd>bdelete!<cr>', { desc = 'Close buffer', silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
