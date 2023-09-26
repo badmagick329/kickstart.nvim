@@ -57,6 +57,7 @@ vim.o.completeopt = 'menuone,noselect'
 -- repl settings
 vim.g.repl_filetype_commands = {
   python = "ipython --no-autoindent",
+  -- python = "ptpython --dark-bg",
   javascript = "node",
 }
 vim.g.repl_split = 'right'

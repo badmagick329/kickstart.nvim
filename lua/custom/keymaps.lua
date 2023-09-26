@@ -8,6 +8,11 @@ end
 
 -- [[ Basic Keymaps ]]
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+-- Save
+vim.keymap.set({'n', 'v', 'i', 'x'}, '<C-s>', '<cmd>w<cr>', { silent = true })
+-- Select full function
+vim.keymap.set('n', 'vaf', 'vafo0oj', { silent = true, remap = true })
+vim.keymap.set('n', 'vif', 'vifo0oj', { silent = true, remap = true })
 
 -- Close buffer
 -- vim.keymap.set('n', '<leader>c', '<cmd>bdelete!<cr>', { desc = 'Close buffer', silent = true })
