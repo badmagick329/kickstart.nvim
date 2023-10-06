@@ -45,9 +45,9 @@ return {
         sql = {
           function()
             return {
-              exe = 'sql-formatter',
+              exe = 'sql-formatter-cli',
               args = {
-                util.escape_path(util.get_current_buffer_file_path()),
+                '-',
               },
               stdin = true,
             }

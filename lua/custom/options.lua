@@ -18,8 +18,10 @@ vim.o.rnu = true
 -- Use spaces instead of tab
 vim.o.expandtab = true
 -- Set tab length to 4
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
+vim.o.tabstop = 4 -- size of a hard tabstop (ts)
+vim.o.softtabstop = 4 -- number of spaces a <Tab> counts for. When 0, feature is off (sts)
+vim.o.shiftwidth = 4 -- size of an indent (sw)
+vim.o.expandtab = true -- always use spaces instead of tabs
 -- better scrolling
 vim.o.scrolloff = 8
 

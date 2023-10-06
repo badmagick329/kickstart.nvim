@@ -31,7 +31,8 @@ return {
         },
         file_ignore_patterns = { 'node_modules/*',
           '.git/*', 'venv/*', 'vnv/*', '__pycache__/*', '.pytest_cache/*',
-          'go.sum'
+          'go.sum', '**/*.jpg', '**/*.png', '**/*.mp4', "**/*.webm", "**/*.mkv", "**/*.avi",
+          'package-lock.json', 'yarn.lock', 'package.json', '.next', '.cache', '.DS_Store',
         },
       },
     }
