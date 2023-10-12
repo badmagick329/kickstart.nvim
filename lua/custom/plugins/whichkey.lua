@@ -120,10 +120,13 @@ return {
           name = '+trouble',
         },
         ['<leader>r'] = {
-          name = '+terminal',
+          name = '+refactor',
         },
         ['<leader>d'] = {
           name = '+debug',
+        },
+        ['<leader>f'] = {
+          name = '+folds',
         }
       }
     end,

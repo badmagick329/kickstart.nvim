@@ -235,46 +235,46 @@ lspconfig.pyright.setup {
 
 -- Settings with inlay hints
 -- typescript-tools
-local ih = require 'inlay-hints'
-lspconfig['typescript-tools'].setup {
-  capabilities = capabilities,
-  filetypes = {
-    'javascript',
-    'javascriptreact',
-    'javascript.jsx',
-    'typescript',
-    'typescriptreact',
-    'typescript.tsx',
-  },
-  root_dir = function(fname)
-    return util.root_pattern 'tsconfig.json'(fname) or util.root_pattern('package.json', 'jsconfig.json', '.git')(fname)
-  end,
-  single_file_support = true,
-  settings = {
-    javascript = {
-      inlayHints = {
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = true,
-      },
-    },
-    typescript = {
-      inlayHints = {
-        includeInlayEnumMemberValueHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayVariableTypeHints = true,
-      },
-    },
-  },
-}
+-- local ih = require 'inlay-hints'
+-- lspconfig['typescript-tools'].setup {
+--   capabilities = capabilities,
+--   filetypes = {
+--     'javascript',
+--     'javascriptreact',
+--     'javascript.jsx',
+--     'typescript',
+--     'typescriptreact',
+--     'typescript.tsx',
+--   },
+--   root_dir = function(fname)
+--     return util.root_pattern 'tsconfig.json'(fname) or util.root_pattern('package.json', 'jsconfig.json', '.git')(fname)
+--   end,
+--   single_file_support = true,
+--   settings = {
+--     javascript = {
+--       inlayHints = {
+--         includeInlayEnumMemberValueHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--       },
+--     },
+--     typescript = {
+--       inlayHints = {
+--         includeInlayEnumMemberValueHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayParameterNameHints = 'all', -- 'none' | 'literals' | 'all';
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--       },
+--     },
+--   },
+-- }
 -- gopls
 lspconfig.gopls.setup {
   on_attach = function(c, b)

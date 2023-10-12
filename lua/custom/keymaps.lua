@@ -9,7 +9,7 @@ end
 -- [[ Basic Keymaps ]]
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Save
-vim.keymap.set({'n', 'v', 'i', 'x'}, '<C-s>', '<cmd>w<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v', 'i', 'x' }, '<C-s>', '<cmd>w<cr>', { silent = true })
 -- Select full function
 vim.keymap.set('n', 'vaf', 'vafo0oj', { silent = true, remap = true })
 vim.keymap.set('n', 'vif', 'vifo0oj', { silent = true, remap = true })
@@ -45,8 +45,8 @@ nmap('<leader>q', vim.diagnostic.setloclist, 'Open diagnostics list')
 
 -- Comment and uncomment lines
 
-vim.keymap.set('n', '<leader>lc', '<cmd>lua cprints()<cr>', { desc = 'Comment print statements', silent = true })
-vim.keymap.set('n', '<leader>lC', '<cmd>lua uprints()<cr>', { desc = 'Uncomment print statements', silent = true })
+-- vim.keymap.set('n', '<leader>lc', '<cmd>lua cprints()<cr>', { desc = 'Comment print statements', silent = true })
+-- vim.keymap.set('n', '<leader>lC', '<cmd>lua uprints()<cr>', { desc = 'Uncomment print statements', silent = true })
 
 -- function signature help in insert mode
 local opts = { noremap = true, silent = true }
@@ -179,6 +179,44 @@ nmap('<Leader>dx', function()
   dapui.close()
 end, 'Debug: Close')
 -- stylua: ignore end
+-- [[Dev Docs]]
+nmap('<Leader>lC', '<cmd>DevdocsOpenFloat<CR>', 'Devdocs: Open Devdocs')
+nmap('<Leader>lc', '<cmd>DevdocsOpenCurrentFloat<CR>', 'Devdocs: Open Devdocs Current')
+-- stylua: ignore start
+-- [[Refactor]]
+-- Extract function supports only visual mode
+vim.keymap.set("x", "<leader>re", function() require('refactoring').refactor('Extract Function') end, { desc = 'Extract Function' })
+vim.keymap.set("x", "<leader>rf", function() require('refactoring').refactor('Extract Function To File') end, { desc = 'Extract Function To File' })
+-- Extract variable supports only visual mode
+vim.keymap.set("x", "<leader>rv", function() require('refactoring').refactor('Extract Variable') end, { desc = 'Extract Variable' })
+-- Inline func supports only normal
+vim.keymap.set("n", "<leader>rI", function() require('refactoring').refactor('Inline Function') end, { desc = 'Inline Function' })
+-- Inline var supports both normal and visual mode
+vim.keymap.set({ "n", "x" }, "<leader>ri", function() require('refactoring').refactor('Inline Variable') end, { desc = 'Inline Variable' })
+-- Extract block supports only normal mode
+vim.keymap.set("n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end, { desc = 'Extract Block' })
+vim.keymap.set("n", "<leader>rbf", function() require('refactoring').refactor('Extract Block To File') end, { desc = 'Extract Block To File' })
+-- prompt for a refactor to apply when the remap is triggered
+vim.keymap.set(
+    {"n", "x"},
+    "<leader>rr",
+    function() require('refactoring').select_refactor() end, { desc = 'Select Refactor' }
+)
+-- Note that not all refactor support both normal and visual mode
+-- stylua: ignore end
+
+vim.keymap.set('n', '<leader>zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
+vim.keymap.set('n', '<leader>zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
+vim.keymap.set('n', '<leader>zr', require('ufo').openFoldsExceptKinds, { desc = 'Open all folds except kinds' })
+vim.keymap.set('n', '<leader>zm', require('ufo').closeFoldsWith, { desc = 'Close all folds with' })
+vim.keymap.set('n', '<leader>K', function()
+  local winid = require('ufo').peekFoldedLinesUnderCursor()
+  if not winid then
+    -- choose one of coc.nvim and nvim lsp
+    -- vim.fn.CocActionAsync('definitionHover') -- coc.nvim
+    vim.lsp.buf.hover()
+  end
+end, { desc = 'Peek under cursor' })
 
 -- local widgets = require 'dap.ui.widgets'
 -- nmap('<Leader>de', function() widgets.centered_float(widgets.scopes).open() end, 'Open Scopes')

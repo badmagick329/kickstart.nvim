@@ -6,7 +6,7 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     -- nvim-cmp path completion
-    "hrsh7th/cmp-path",
+    'hrsh7th/cmp-path',
     -- Adds LSP completion capabilities
     'hrsh7th/cmp-nvim-lsp',
 
@@ -25,6 +25,9 @@ return {
         expand = function(args)
           luasnip.lsp_expand(args.body)
         end,
+      },
+      formatting = {
+        format = require('cmp-tailwind-colors').format,
       },
       mapping = cmp.mapping.preset.insert {
         ['<C-n>'] = cmp.mapping.select_next_item(),
@@ -56,10 +59,10 @@ return {
         end, { 'i', 's' }),
       },
       sources = {
-        { name = 'copilot', group_index = 2  },
-        { name = 'nvim_lsp', group_index = 2  },
-        { name = "path", group_index = 2 },
-        { name = 'luasnip', group_index = 2  },
+        { name = 'copilot', group_index = 2 },
+        { name = 'nvim_lsp', group_index = 2 },
+        { name = 'path', group_index = 2 },
+        { name = 'luasnip', group_index = 2 },
       },
     }
   end,

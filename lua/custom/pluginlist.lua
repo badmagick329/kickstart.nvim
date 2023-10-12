@@ -59,6 +59,12 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
   -- schema store for json/yaml
   'b0o/SchemaStore.nvim',
+  -- color picker
+  'uga-rosa/ccc.nvim',
+  -- Better sort
+  'sQVe/sort.nvim',
+  -- Context
+  'nvim-treesitter/nvim-treesitter-context',
 
   -- Uncomment any of the lines below to enable.
   -- require 'kickstart.plugins.autoformat',
@@ -67,7 +73,7 @@ require('lazy').setup({
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   { import = 'custom.plugins' },
-  require 'custom.dap'
+  require 'custom.dap',
 }, {
   change_detection = {
     notify = false,

@@ -40,6 +40,7 @@ return {
         gitcommit = false,
         gitrebase = false,
         hgcommit = false,
+        norg = false,
         svn = false,
         cvs = false,
         ["."] = false,
