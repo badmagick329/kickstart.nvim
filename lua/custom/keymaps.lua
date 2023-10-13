@@ -205,18 +205,18 @@ vim.keymap.set(
 -- Note that not all refactor support both normal and visual mode
 -- stylua: ignore end
 
-vim.keymap.set('n', '<leader>zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
-vim.keymap.set('n', '<leader>zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
-vim.keymap.set('n', '<leader>zr', require('ufo').openFoldsExceptKinds, { desc = 'Open all folds except kinds' })
-vim.keymap.set('n', '<leader>zm', require('ufo').closeFoldsWith, { desc = 'Close all folds with' })
-vim.keymap.set('n', '<leader>K', function()
-  local winid = require('ufo').peekFoldedLinesUnderCursor()
-  if not winid then
-    -- choose one of coc.nvim and nvim lsp
-    -- vim.fn.CocActionAsync('definitionHover') -- coc.nvim
-    vim.lsp.buf.hover()
-  end
-end, { desc = 'Peek under cursor' })
+-- vim.keymap.set('n', '<leader>zR', require('ufo').openAllFolds, { desc = 'Open all folds' })
+-- vim.keymap.set('n', '<leader>zM', require('ufo').closeAllFolds, { desc = 'Close all folds' })
+-- vim.keymap.set('n', '<leader>zr', require('ufo').openFoldsExceptKinds, { desc = 'Open all folds except kinds' })
+-- vim.keymap.set('n', '<leader>zm', require('ufo').closeFoldsWith, { desc = 'Close all folds with' })
+-- vim.keymap.set('n', '<leader>K', function()
+--   local winid = require('ufo').peekFoldedLinesUnderCursor()
+--   if not winid then
+--     -- choose one of coc.nvim and nvim lsp
+--     -- vim.fn.CocActionAsync('definitionHover') -- coc.nvim
+--     vim.lsp.buf.hover()
+--   end
+-- end, { desc = 'Peek under cursor' })
 
 -- local widgets = require 'dap.ui.widgets'
 -- nmap('<Leader>de', function() widgets.centered_float(widgets.scopes).open() end, 'Open Scopes')

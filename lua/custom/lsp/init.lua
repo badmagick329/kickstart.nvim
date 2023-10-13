@@ -96,6 +96,7 @@ local servers = {
   tailwindcss = {
     filetypes = {
       'html',
+      'typescriptreact',
     },
   },
   -- pyright = {
