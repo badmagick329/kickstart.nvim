@@ -196,6 +196,20 @@ return {
             }
           end,
         },
+        prisma = {
+          function()
+            return {
+              exe = 'npx',
+              args = {
+                'prisma',
+                'format',
+                '--schema',
+                util.escape_path(util.get_current_buffer_file_path()),
+              },
+              stdin = false,
+            }
+          end,
+        },
         -- Use the special "*" filetype for defining formatter configurations on
         -- any filetype
         ['*'] = {

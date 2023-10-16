@@ -25,6 +25,12 @@ function hybridlines()
   vim.o.rnu = true
 end
 
+function indent(n)
+  vim.o.tabstop = n
+  vim.o.softtabstop = n
+  vim.o.shiftwidth = n
+end
+
 function cprints()
   local filetype = vim.bo.filetype
   local c = '# '
