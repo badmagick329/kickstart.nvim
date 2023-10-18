@@ -97,6 +97,7 @@ local servers = {
     filetypes = {
       'html',
       'typescriptreact',
+      'htmldjango',
     },
   },
   -- pyright = {

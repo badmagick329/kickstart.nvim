@@ -25,6 +25,17 @@ function hybridlines()
   vim.o.rnu = true
 end
 
+function setuptailwind()
+  local lspconfig = require 'lspconfig'
+  lspconfig.tailwindcss.setup {
+    capabilities = capabilities,
+    filetypes = {
+      'html',
+      'typescriptreact',
+    },
+  }
+end
+
 function indent(n)
   vim.o.tabstop = n
   vim.o.softtabstop = n

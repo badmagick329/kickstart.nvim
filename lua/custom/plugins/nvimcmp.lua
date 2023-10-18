@@ -12,6 +12,7 @@ return {
 
     -- Adds a number of user-friendly snippets
     'rafamadriz/friendly-snippets',
+    { 'roobert/tailwindcss-colorizer-cmp.nvim', config = true },
   },
   config = function()
     -- [[ Configure nvim-cmp ]]
@@ -60,7 +61,8 @@ return {
       },
       sources = {
         { name = 'copilot', group_index = 2 },
-        { name = 'nvim_lsp', group_index = 2 },
+        -- { name = 'nvim_lsp', group_index = 2 },
+        { name = 'nvim_lsp', keyword_length = 3, group_index = 2, max_item_count = 40 },
         { name = 'path', group_index = 2 },
         { name = 'luasnip', group_index = 2 },
       },
