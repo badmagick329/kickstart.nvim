@@ -49,6 +49,7 @@ return {
           '.next',
           '.cache',
           '.DS_Store',
+          'fontawesomefree/*',
         },
       },
     }
