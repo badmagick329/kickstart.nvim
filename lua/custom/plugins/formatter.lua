@@ -81,7 +81,7 @@ return {
               args = {
                 '-q',
                 '--line-length',
-                '80',
+                '79',
                 '-',
               },
               stdin = true,

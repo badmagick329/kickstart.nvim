@@ -16,8 +16,10 @@ vim.keymap.set('n', 'vif', 'vifo0oj', { silent = true, remap = true })
 
 -- Close buffer
 vim.keymap.set('n', '<leader>c', '<cmd>bdelete!<cr>', { desc = 'Close buffer', silent = true })
--- vim.keymap.set('n', '<leader>c', ":b#<cr> <BAR> :bd#<cr> <BAR> :bp<cr> <BAR> :bn<cr>"
--- , { desc = 'Close buffer', silent = true })
+-- Close all except current buffer
+-- Vim version
+vim.keymap.set('n', '<leader>C', '<cmd>%bdelete|edit#|bdelete#<cr>', { desc = 'Close all except current buffer', silent = true })
+-- vim.keymap.set('n', '<leader>C', CloseAllExceptCurrent, { desc = 'Close all except current buffer', silent = true })
 
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

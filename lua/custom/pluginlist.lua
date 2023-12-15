@@ -32,7 +32,7 @@ require('lazy').setup({
   'tpope/vim-surround',
   -- lets you repeat things like vim surround motions
   'tpope/vim-repeat',
-  'badmagick329/harpoon',
+  'ThePrimeagen/harpoon',
   'pappasam/nvim-repl',
   'mbbill/undotree',
   {

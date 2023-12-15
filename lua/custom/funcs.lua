@@ -25,17 +25,6 @@ function hybridlines()
   vim.o.rnu = true
 end
 
-function setuptailwind()
-  local lspconfig = require 'lspconfig'
-  lspconfig.tailwindcss.setup {
-    capabilities = capabilities,
-    filetypes = {
-      'html',
-      'typescriptreact',
-    },
-  }
-end
-
 function indent(n)
   vim.o.tabstop = n
   vim.o.softtabstop = n
@@ -62,4 +51,14 @@ function uprints()
     p = 'print'
   end
   vim.cmd([[%s/\(.*\)\(]] .. c .. p .. [[\)\(.*\)/\1]] .. p .. [[\3/g]])
+end
+
+function CloseAllExceptCurrent()
+  local bufs = vim.api.nvim_list_bufs()
+  local current_buf = vim.api.nvim_get_current_buf()
+  for _, i in ipairs(bufs) do
+    if i ~= current_buf then
+      vim.api.nvim_buf_delete(i, {})
+    end
+  end
 end

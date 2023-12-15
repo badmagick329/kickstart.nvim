@@ -100,26 +100,26 @@ local servers = {
       'htmldjango',
     },
   },
-  -- pyright = {
-  --   settings = {
-  --     python = {
-  --       analysis = {
-  --         autoSearchPaths = true,
-  --         autoImportCompletions = true,
-  --         completeFunctionParens = true,
-  --         diagnosticMode = 'workspace',
-  --         useLibraryCodeForTypes = true,
-  --         -- useLibraryCodeForTypes = false,
-  --         diagnosticSeverityOverrides = {
-  --           reportGeneralTypeIssues = 'none',
-  --           reportOptionalSubscript = 'none',
-  --           reportPrivateUsage = 'warning',
-  --           reportOptionalMemberAccess = 'none',
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          autoImportCompletions = true,
+          completeFunctionParens = true,
+          diagnosticMode = 'workspace',
+          useLibraryCodeForTypes = true,
+          -- useLibraryCodeForTypes = false,
+          diagnosticSeverityOverrides = {
+            reportGeneralTypeIssues = 'none',
+            reportOptionalSubscript = 'none',
+            reportPrivateUsage = 'warning',
+            reportOptionalMemberAccess = 'none',
+          },
+        },
+      },
+    },
+  },
   emmet_ls = {},
   html = {
     filetypes = { 'html', 'twig', 'hbs', 'htmldjango' },
@@ -171,6 +171,7 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+      hint = { enable = false },
     },
   },
 }
@@ -212,32 +213,32 @@ mason_lspconfig.setup_handlers {
 local lspconfig = require 'lspconfig'
 
 -- pyright setup
-lspconfig.pyright.setup {
-  capabilities = capabilities,
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        autoImportCompletions = true,
-        completeFunctionParens = true,
-        diagnosticMode = 'workspace',
-        useLibraryCodeForTypes = true,
-        -- useLibraryCodeForTypes = false,
-        diagnosticSeverityOverrides = {
-          reportGeneralTypeIssues = 'none',
-          reportOptionalSubscript = 'none',
-          reportPrivateUsage = 'warning',
-          reportOptionalMemberAccess = 'none',
-        },
-      },
-    },
-  },
-  filetypes = { 'python' },
-}
+-- lspconfig.pyright.setup {
+--   capabilities = capabilities,
+--   settings = {
+--     python = {
+--       analysis = {
+--         autoSearchPaths = true,
+--         autoImportCompletions = true,
+--         completeFunctionParens = true,
+--         diagnosticMode = 'workspace',
+--         useLibraryCodeForTypes = true,
+--         -- useLibraryCodeForTypes = false,
+--         diagnosticSeverityOverrides = {
+--           reportGeneralTypeIssues = 'none',
+--           reportOptionalSubscript = 'none',
+--           reportPrivateUsage = 'warning',
+--           reportOptionalMemberAccess = 'none',
+--         },
+--       },
+--     },
+--   },
+--   filetypes = { 'python' },
+-- }
 
+local ih = require 'inlay-hints'
 -- Settings with inlay hints
 -- typescript-tools
--- local ih = require 'inlay-hints'
 -- lspconfig['typescript-tools'].setup {
 --   capabilities = capabilities,
 --   filetypes = {
@@ -279,20 +280,20 @@ lspconfig.pyright.setup {
 -- }
 -- gopls
 lspconfig.gopls.setup {
-  on_attach = function(c, b)
-    ih.on_attach(c, b)
-  end,
+  -- on_attach = function(c, b)
+  --   ih.on_attach(c, b)
+  -- end,
   capabilities = capabilities,
   filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
   settings = {
     gopls = {
       hints = {
         assignVariableTypes = true,
-        compositeLiteralFields = true,
+        compositeLiteralFields = false,
         compositeLiteralTypes = true,
         constantValues = true,
         functionTypeParameters = true,
-        parameterNames = true,
+        parameterNames = false,
         rangeVariableTypes = true,
       },
     },

@@ -12,13 +12,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Fix for tailwindcss not working with htmldjango
--- vim.api.nvim_create_autocmd({"FileType"}, {
--- 	pattern = "htmldjango",
--- 	command = "set ft=html"
--- })
--- ---------------------------------------------------------------
-
 require 'custom.pluginlist'
 require 'custom.funcs'
 require 'custom.options'

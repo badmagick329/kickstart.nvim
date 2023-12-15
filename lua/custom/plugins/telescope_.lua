@@ -47,9 +47,9 @@ return {
           '**/yarn.lock',
           '**/package.json',
           '.next',
-          '.cache',
           '.DS_Store',
           'fontawesomefree/*',
+          'db/',
         },
       },
     }
