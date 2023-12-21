@@ -6,7 +6,11 @@
 vim.o.hlsearch = false
 
 -- Undo dir
-vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
+local homePath = os.getenv("HOME")
+if homePath == nil then
+  homePath = os.getenv("USERPROFILE")
+end
+vim.o.undodir = homePath .. "/.vim/undodir"
 vim.o.undofile = true
 
 -- Make line numbers default
