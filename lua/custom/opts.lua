@@ -4,31 +4,54 @@
 
 vim.o.number = true
 vim.o.relativenumber = true
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
+
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+
 vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
 -- Enable break indent
 vim.o.breakindent = true
+
+-- Disable wrapping
+vim.o.autoindent = true
+
+vim.o.wrap = false
+-- Auto indent when entering a new line
+-- Companion to wrap. Dont split words (default: false)
+vim.o.linebreak = true
+
 -- Save undo history
 vim.o.undofile = true
+
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
+
+vim.o.shiftwidth = 4 -- The number of spaces inserted for each indentation (default: 8)
+vim.o.tabstop = 4 -- Insert n spaces for a tab (default: 8)
+vim.o.softtabstop = 4 -- Number of spaces that a tab counts for while performing editing operations (default: 0)
+vim.o.expandtab = true -- Convert tabs to spaces (default: false)
+
 -- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
+
 -- Decrease update time
 vim.o.updatetime = 250
+
 -- Decrease mapped sequence wait time
 vim.o.timeoutlen = 300
+
 -- Configure how new splits should be opened
 vim.o.splitright = true
 vim.o.splitbelow = true
@@ -43,13 +66,28 @@ vim.o.splitbelow = true
 --   and `:help lua-options-guide`
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
+
 -- Show which line your cursor is on
 vim.o.cursorline = true
+
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
+vim.o.scrolloff = 10 -- Minimal number of screen lines to keep above and below the cursor (default: 0)
+vim.o.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
+
+vim.o.swapfile = false -- Creates a swapfile (default: true)
+vim.o.whichwrap = 'bs<>[]hl' -- Which "horizontal" keys are allowed to travel to prev/next line (default: 'b,s')
+
+vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience (default: 'menu,preview')
+vim.opt.shortmess:append 'c' -- Don't give |ins-completion-menu| messages (default: does not include 'c')
+vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches (default: does not include '-')
+vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- Don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode. (default: 'croql')
+
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)
 -- See `:help 'confirm'`
 vim.o.confirm = true
+
+-- vim: ts=2 sts=2 sw=2 et
