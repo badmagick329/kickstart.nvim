@@ -20,6 +20,7 @@ return {
   { import = 'custom.plugins.colorscheme' },
   { import = 'custom.plugins.mini' },
   { import = 'custom.plugins.treesitter' },
+  { import = 'custom.plugins.nvim-tree' },
   { import = 'custom.plugins.lsp' },
 }
 -- vim: ts=2 sts=2 sw=2 et
