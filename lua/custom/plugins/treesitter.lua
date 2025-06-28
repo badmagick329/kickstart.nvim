@@ -33,6 +33,7 @@ return {
       'tsx',
       'css',
       'html',
+      'htmldjango',
     },
     -- Autoinstall languages that are not installed
     auto_install = true,

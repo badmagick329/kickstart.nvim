@@ -86,3 +86,22 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+
+-- keep track of current diagnostics state
+local inline_diags_enabled = true
+
+-- toggle function
+local function toggle_inline_diagnostics()
+  inline_diags_enabled = not inline_diags_enabled
+  vim.diagnostic.config {
+    virtual_text = inline_diags_enabled,
+    -- you can also keep your other diagnostic opts here:
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+  }
+  print('Inline diagnostics ' .. (inline_diags_enabled and 'enabled' or 'disabled'))
+end
+
+-- keymap: <Leader>qd to toggle inline diagnostics
+vim.keymap.set('n', '<Leader>qd', toggle_inline_diagnostics, { desc = 'Toggle inline diagnostics' })

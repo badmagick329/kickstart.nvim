@@ -25,6 +25,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
+-- Disable comment-continuation on enter/o/O, and auto-wrap comments
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('DisableCommentCont', { clear = true }),
   pattern = '*',
