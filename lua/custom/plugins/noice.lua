@@ -3,6 +3,22 @@ return {
   event = 'VeryLazy',
   dependencies = { 'MunifTanjim/nui.nvim' },
   opts = {
+    -- Disable pylsp linting spam
+    routes = {
+      {
+        filter = {
+          event = 'lsp',
+          kind = 'progress',
+          -- Only skip for pylsp
+          cond = function(message)
+            -- message.opts.progress.client holds the LSP name
+            local client = vim.tbl_get(message.opts, 'progress', 'client')
+            return client == 'pylsp'
+          end,
+        },
+        opts = { skip = true },
+      },
+    },
     -- Disable cmdline replacement
     cmdline = {
       enabled = false,

@@ -81,7 +81,25 @@ return {
     completion = {
       -- By default, you may press `<c-space>` to show the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
-      documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      documentation = { auto_show = false, auto_show_delay_ms = 500, window = {
+        border = 'rounded',
+      } },
+      menu = {
+        border = 'rounded',
+        winhighlight = table.concat({
+          'Normal:BlinkCmpMenu', -- menu bg/fg
+          'FloatBorder:BlinkCmpMenuBorder', -- border color
+          'CursorLine:BlinkCmpMenuSelection', -- selected item bg
+        }, ','),
+        draw = {
+          -- first column: label + detail; second: kind icon + kind; third: source name
+          columns = {
+            { 'label', 'label_description', gap = 1 },
+            { 'kind_icon', 'kind', gap = 1 },
+            { 'source_name' },
+          },
+        },
+      },
     },
 
     sources = {
