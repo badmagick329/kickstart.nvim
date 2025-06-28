@@ -30,6 +30,8 @@ return {
       },
       filters = {
         dotfiles = false,
+        git_ignored = false, -- ⟵ show files in .gitignore
+        custom = { '^\\.git', '^node_modules', '^venv', '^\\.venv' }, -- example custom filters
       },
       on_attach = my_on_attach,
     }
