@@ -227,7 +227,6 @@ return {
           -- Only include Package, Module, and Function:
           --   filter = { 'Package', 'Module', 'Function' }
           -- See more examples below.
-          filter = { default = { 'String', exclude = true }, python = { 'Function', 'Class' } },
 
           -- You can use a custom function that returns the icon for each symbol kind.
           -- This function takes a kind (string) as parameter and should return an
