@@ -57,7 +57,12 @@ end
 
 vim.keymap.set('n', '[q', diagnostic_jump_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']q', diagnostic_jump_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- Quickfix list
+vim.keymap.set('n', '<leader>qq', vim.diagnostic.setloclist, { desc = 'Open [Q]uickfix list' })
+vim.keymap.set('n', '<leader>qn', '<cmd>cn<cr>', { desc = '[N]ext Fix' })
+vim.keymap.set('n', '<leader>qN', '<cmd>cla<cr>', { desc = 'Last Fix' })
+vim.keymap.set('n', '<leader>qp', '<cmd>cp<cr>', { desc = '[P]revious Fix' })
+vim.keymap.set('n', '<leader>qP', '<cmd>cfir<cr>', { desc = 'First Fix' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -81,5 +86,3 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
--- vim: ts=2 sts=2 sw=2 et

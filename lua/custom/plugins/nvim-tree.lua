@@ -38,4 +38,3 @@ return {
     vim.keymap.set({ 'n', 'x', 'i' }, '<Leader>e', '<cmd>NvimTreeToggle<CR>')
   end,
 }
--- vim: ts=2 sts=2 sw=2 et

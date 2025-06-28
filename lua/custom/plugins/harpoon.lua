@@ -30,4 +30,3 @@ return {
     -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
   end,
 }
--- vim: ts=2 sts=2 sw=2 et
