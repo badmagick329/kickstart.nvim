@@ -163,6 +163,11 @@ return {
           source = 'if_many',
           spacing = 2,
           format = function(diagnostic)
+            -- Filter out pylsp and pyflakes diagnostics completely
+            if diagnostic.source == 'pylsp' or diagnostic.source == 'pyflakes' or diagnostic.source == 'pycodestyle' then
+              return nil -- Don't show these diagnostics
+            end
+
             local diagnostic_message = {
               [vim.diagnostic.severity.ERROR] = diagnostic.message,
               [vim.diagnostic.severity.WARN] = diagnostic.message,
@@ -205,8 +210,8 @@ return {
         pylsp = {
           settings = {
             pylsp = {
-              disableDiagnostics = true,
               plugins = {
+                -- Disable all diagnostic plugins - let ruff handle everything
                 pyflakes = { enabled = false },
                 pycodestyle = { enabled = false },
                 autopep8 = { enabled = false },
@@ -215,7 +220,13 @@ return {
                 pylsp_mypy = { enabled = false },
                 pylsp_black = { enabled = false },
                 pylsp_isort = { enabled = false },
+                flake8 = { enabled = false },
+                pylint = { enabled = false },
+                pydocstyle = { enabled = false },
+                rope_autoimport = { enabled = false },
+                rope_completion = { enabled = false },
               },
+              configurationSources = {}, -- Don't read from any config files
             },
           },
         },
@@ -273,6 +284,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'ruff', -- Python linter and formatter
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -286,6 +298,16 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             -- turn off formatting for cssls, html, jsonls (we'll use Prettier instead)
+
+            -- If this is pylsp, completely disable its diagnostics
+            if server_name == 'pylsp' then
+              server.on_attach = function(client, bufnr)
+                -- Disable all diagnostic capabilities from pylsp
+                client.server_capabilities.diagnosticProvider = false
+                client.server_capabilities.publishDiagnostics = false
+              end
+            end
+
             if server_name == 'cssls' or server_name == 'html' or server_name == 'jsonls' then
               server.on_attach = function(client, bufnr)
                 client.server_capabilities.documentFormattingProvider = false
