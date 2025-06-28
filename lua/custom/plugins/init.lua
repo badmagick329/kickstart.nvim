@@ -16,6 +16,20 @@ return {
       },
     },
   },
-  { 'norcalli/nvim-colorizer.lua', opts = {} },
+  {
+    'norcalli/nvim-colorizer.lua',
+    ft = { 'css', 'scss', 'html', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    opts = {
+      css = { rgb_fn = true, hsl = true, tailwind = true },
+      'javascript',
+      'typescript',
+      'javascriptreact',
+      'typescriptreact',
+      'html',
+    },
+    config = function(_, opts)
+      require('colorizer').setup(opts)
+    end,
+  },
 }
 -- vim: ts=2 sts=2 sw=2 et
