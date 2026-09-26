@@ -20,14 +20,15 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+-- Auto indent when entering a new line
+vim.o.autoindent = true
+
 -- Enable break indent
 vim.o.breakindent = true
 
 -- Disable wrapping
-vim.o.autoindent = true
-
 vim.o.wrap = false
--- Auto indent when entering a new line
+
 -- Companion to wrap. Dont split words (default: false)
 vim.o.linebreak = true
 
@@ -81,7 +82,6 @@ vim.o.swapfile = false -- Creates a swapfile (default: true)
 vim.o.whichwrap = 'bs<>[]hl' -- Which "horizontal" keys are allowed to travel to prev/next line (default: 'b,s')
 
 vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience (default: 'menu,preview')
-vim.opt.shortmess:append 'c' -- Don't give |ins-completion-menu| messages (default: does not include 'c')
 vim.opt.iskeyword:append '-' -- Hyphenated words recognized by searches (default: does not include '-')
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),

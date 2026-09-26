@@ -1,5 +1,6 @@
 return {
   'zbirenbaum/copilot.lua',
+  enabled = false,
   cmd = 'Copilot', -- load on Copilot commands
   event = 'InsertEnter', -- or only on first InsertEnter
   config = function()

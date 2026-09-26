@@ -43,6 +43,7 @@ return { -- Autoformat
       scss = { 'prettierd', 'prettier', stop_after_first = true },
       less = { 'prettierd', 'prettier', stop_after_first = true },
       html = { 'prettierd', 'prettier', stop_after_first = true },
+      htmldjango = { 'prettierd', 'prettier', stop_after_first = true },
       json = { 'prettierd', 'prettier', stop_after_first = true },
       jsonc = { 'prettierd', 'prettier', stop_after_first = true },
     },

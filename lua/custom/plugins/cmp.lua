@@ -43,6 +43,7 @@ return {
     event = 'VimEnter',
     version = '1.*',
     dependencies = {
+      'Kaiser-Yang/blink-cmp-avante',
       'L3MON4D3/LuaSnip',
       'folke/lazydev.nvim',
     },
@@ -109,11 +110,18 @@ return {
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'avante', 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
         providers = {
-          -- lsp       = { score_offset =  50 },  -- +10 for LSP items
-          -- path      = { score_offset =  30 },  -- +5  for filesystem paths
-          -- snippets  = { score_offset =   0 },  -- +0  for snippet completions
+          avante = {
+            module = 'blink-cmp-avante',
+            name = 'Avante',
+            opts = {
+              -- options for blink-cmp-avante
+            },
+          },
+          lsp = { score_offset = 50 }, -- +10 for LSP items
+          path = { score_offset = 30 }, -- +5  for filesystem paths
+          snippets = { score_offset = 0 }, -- +0  for snippet completions
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },

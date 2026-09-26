@@ -63,6 +63,7 @@ return {
       { '<leader>t', group = '[T]oggle' },
       { '<leader>l', group = '[L]sp' },
       { '<leader>q', group = '[Q]uickfix list' },
+      { '<leader>z', group = 'Copilot Chat' },
       { '<leader>k', group = 'Harpoon' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
     },

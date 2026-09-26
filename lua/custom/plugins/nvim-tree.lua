@@ -35,6 +35,6 @@ return {
       },
       on_attach = my_on_attach,
     }
-    vim.keymap.set({ 'n', 'x', 'i' }, '<Leader>e', '<cmd>NvimTreeToggle<CR>')
+    vim.keymap.set({ 'n', 'x' }, '<Leader>e', '<cmd>NvimTreeToggle<CR>')
   end,
 }

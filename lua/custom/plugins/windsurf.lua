@@ -1,0 +1,50 @@
+-- add this to the file where you setup your other plugins:
+-- return {
+--   'monkoose/neocodeium',
+--   enbaled = false,
+--   event = 'VeryLazy',
+--   config = function()
+--     local neocodeium = require 'neocodeium'
+--     neocodeium.setup {
+--       enabled = true,
+--       bin = nil,
+--       manual = true,
+--       server = {},
+--       show_label = true,
+--       debounce = false,
+--       max_lines = 10000,
+--       silent = false,
+--       disable_in_special_buftypes = true,
+--       log_level = 'warn',
+--       single_line = {
+--         enabled = false,
+--         label = '...',
+--       },
+--       filter = nil,
+--       filetypes = {
+--         help = false,
+--         gitcommit = false,
+--         gitrebase = false,
+--         ['.'] = false,
+--       },
+--       root_dir = {
+--         '.bzr',
+--         '.git',
+--         '.hg',
+--         '.svn',
+--         '_FOSSIL_',
+--         'package.json',
+--       },
+--     }
+--
+--     vim.keymap.set('i', '<C-l>', neocodeium.accept)
+--
+--     vim.keymap.set('i', '<M-]>', function()
+--       require('neocodeium').cycle_or_complete()
+--     end)
+--     vim.keymap.set('i', '<M-[>', function()
+--       require('neocodeium').cycle_or_complete(-1)
+--     end)
+--   end,
+-- }
+return {}
